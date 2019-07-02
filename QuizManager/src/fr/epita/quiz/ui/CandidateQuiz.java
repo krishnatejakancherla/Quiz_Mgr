@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -19,20 +19,18 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class CandidateQuiz extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8637280731339753772L;
-
-
+	private static final long serialVersionUID = -4760051121978266140L;
 
 	private JPanel mainPane;
 
-	
-
-	public int[] id= new int[50];
+	public int[] qid= new int[50];
 	public String[] ques= new String[50];
 	public String[] chcA= new String[50];
 	public String[] chcB= new String[50];
@@ -50,19 +48,21 @@ public class CandidateQuiz extends JFrame {
 		setContentPane(mainPane);
 		mainPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Welcome to Online Quiz");
-		lblNewLabel.setBounds(211, 11, 146, 14);
-		mainPane.add(lblNewLabel);
-		
+		JLabel titleLbl = new JLabel("Hello " +uname+ ", Welcome to Quiz Exam");
+		titleLbl.setBounds(211, 11, 146, 14);
+		mainPane.add(titleLbl);
 		try {
 			Connection connection = getConnection();
-			String query = "SELECT * FROM question  WHERE TOPICS='"+topic+"' and difficulty="+diff+";";
-			 Statement st = connection.createStatement();
-			 ResultSet rs = st.executeQuery(query);
+			String query = "SELECT QID, CONTENT, CHOICEA, CHOICEB, CHOICEC, CHOICED, ANSWER FROM QUESTION  WHERE TOPICS=? and DIFFICULTY=?";
+			 
+			PreparedStatement pstmt = connection.prepareStatement(query);
+			pstmt.setString(1, topic);
+			pstmt.setInt(2, diff);
+			 ResultSet rs = pstmt.executeQuery();
 			 while(rs.next())
 				{
 				 
-				    id[i] = rs.getInt("ID");
+				    qid[i] = rs.getInt("QID");
 					ques[i] = rs.getString("CONTENT");
 				    chcA[i] = rs.getString("CHOICEA");
 				    chcB[i] = rs.getString("CHOICEB");
@@ -81,62 +81,67 @@ public class CandidateQuiz extends JFrame {
 			quesLbl.setBounds(86, 61, 325, 14);
 			mainPane.add(quesLbl);
 			
-			JRadioButton chcArdBtn = new JRadioButton(chcA[i]);
-			chcArdBtn.setBounds(100, 102, 364, 23);
-			mainPane.add(chcArdBtn);
+			JRadioButton rdBtnA = new JRadioButton(chcA[i]);
+			rdBtnA.setBounds(100, 102, 364, 23);
+			mainPane.add(rdBtnA);
 			
-			JRadioButton chcBrdBtn = new JRadioButton(chcB[i]);
-			chcBrdBtn.setBounds(100, 155, 345, 23);
-			mainPane.add(chcBrdBtn);
+			JRadioButton rdBtnB = new JRadioButton(chcB[i]);
+			rdBtnB.setBounds(100, 155, 345, 23);
+			mainPane.add(rdBtnB);
 			
-			JRadioButton chcCrdBtn = new JRadioButton(chcC[i]);
-			chcCrdBtn.setBounds(100, 212, 333, 23);
-			mainPane.add(chcCrdBtn);
+			JRadioButton rdBtnC = new JRadioButton(chcC[i]);
+			rdBtnC.setBounds(100, 212, 333, 23);
+			mainPane.add(rdBtnC);
 			
-			JRadioButton chcDrdBtn = new JRadioButton(chcD[i]);
-			chcDrdBtn.setBounds(100, 274, 325, 23);
-			mainPane.add(chcDrdBtn);
+			JRadioButton rdBtnD = new JRadioButton(chcD[i]);
+			rdBtnD.setBounds(100, 274, 325, 23);
+			mainPane.add(rdBtnD);
 			
-			ButtonGroup btnGrp = new ButtonGroup();
-			btnGrp.add(chcArdBtn);
-			btnGrp.add(chcBrdBtn);
-			btnGrp.add(chcCrdBtn);
-			btnGrp.add(chcDrdBtn);
+			ButtonGroup rdBnGrp = new ButtonGroup();
+			rdBnGrp.add(rdBtnA);
+			rdBnGrp.add(rdBtnB);
+			rdBnGrp.add(rdBtnC);
+			rdBnGrp.add(rdBtnD);
 
 
-			getContentPane().add(chcArdBtn);
-			getContentPane().add(chcBrdBtn);
-			getContentPane().add(chcCrdBtn);
-			getContentPane().add(chcDrdBtn);
+			getContentPane().add(rdBtnA);
+			getContentPane().add(rdBtnB);
+			getContentPane().add(rdBtnC);
+			getContentPane().add(rdBtnD);
 			
-			JButton vldtBtn = new JButton("Validate");
-			vldtBtn.addActionListener(new ActionListener() {
+			JButton rcdBtn = new JButton("Record");
+			rcdBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(chcArdBtn.isSelected()) {
-						if(crctAns[i]==chcArdBtn.getText()) {
+					if(rdBtnA.isSelected()) {
+						if(crctAns[i]==rdBtnA.getText()) {
 							c=c+1;
 						}
 					}
-					else if(chcBrdBtn.isSelected()) {
-						if(crctAns[i]==chcBrdBtn.getText()) {
+					else if(rdBtnB.isSelected()) {
+						if(crctAns[i]==rdBtnB.getText()) {
 							c=c+1;
 						}
 					}
-					else if(chcCrdBtn.isSelected()) {
-						if(crctAns[i]==chcCrdBtn.getText()) {
+					else if(rdBtnC.isSelected()) {
+						if(crctAns[i]==rdBtnC.getText()) {
 							c=c+1;
 						}
 					}
-					else if(chcDrdBtn.isSelected()) {
-						if(crctAns[i]==chcDrdBtn.getText()) {
+					else if(rdBtnD.isSelected()) {
+						if(crctAns[i]==rdBtnD.getText()) {
 							c=c+1;
 						}
 					}
 					i++;
 				}
 			});
-			vldtBtn.setBounds(180, 372, 89, 23);
-			mainPane.add(vldtBtn);
+			rcdBtn.setBounds(180, 372, 89, 23);
+			rcdBtn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(null, "Your Question has been recorded,  Please proceed to next Question");
+				}
+			});
+			mainPane.add(rcdBtn);
 			
 			JButton nxtBtn = new JButton("Next");
 			nxtBtn.addActionListener(new ActionListener() {
@@ -144,48 +149,42 @@ public class CandidateQuiz extends JFrame {
 					if(ques[i]!=null)
 					{
 					quesLbl.setText(ques[i]);
-					chcArdBtn.setText(chcA[i]);
-					
-					chcBrdBtn.setText(chcB[i]);
-					chcCrdBtn.setText(chcC[i]);
-					chcDrdBtn.setText(chcD[i]);
-					ButtonGroup group = new ButtonGroup();
-					group.add(chcArdBtn);
-					group.add(chcBrdBtn);
-					group.add(chcCrdBtn);
-					group.add(chcDrdBtn);
+					rdBtnA.setText(chcA[i]);
+					rdBtnB.setText(chcB[i]);
+					rdBtnC.setText(chcC[i]);
+					rdBtnD.setText(chcD[i]);
+					ButtonGroup rdBnGrp = new ButtonGroup();
+					rdBnGrp.add(rdBtnA);
+					rdBnGrp.add(rdBtnB);
+					rdBnGrp.add(rdBtnC);
+					rdBnGrp.add(rdBtnD);
 
 
-					getContentPane().add(chcArdBtn);
-					getContentPane().add(chcBrdBtn);
-					getContentPane().add(chcCrdBtn);
-					getContentPane().add(chcDrdBtn);
+					getContentPane().add(rdBtnA);
+					getContentPane().add(rdBtnB);
+					getContentPane().add(rdBtnC);
+					getContentPane().add(rdBtnD);
 					}
 					else {
-						JButton endBtn = new JButton("End");
-						endBtn.setEnabled(true);
-						endBtn.addActionListener(new ActionListener() {
+						
+						nxtBtn.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								JOptionPane.showMessageDialog(null, "The Quiz is Completed Successfully \n The Mark is "+c);
+								JOptionPane.showMessageDialog(null, "You reached to End of the Quiz, Please End your Quiz");
 							}
 						});
-						endBtn.setBounds(180, 443, 89, 23);
-						mainPane.add(endBtn);
+						
 					}
 				}
 			});
 			nxtBtn.setBounds(295, 370, 89, 23);
 			mainPane.add(nxtBtn);
-			
 			JButton endBtn = new JButton("End");
 			endBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "The Quiz is Completed Successfully \n The Mark is "+c);
+					JOptionPane.showMessageDialog(null, "The Quiz is Completed Successfully \n Your Score is : "+c);
 					new Main();
 					setVisible(false);
-					
 				}
-				
 			});
 			endBtn.setBounds(180, 435, 89, 23);
 			mainPane.add(endBtn);
