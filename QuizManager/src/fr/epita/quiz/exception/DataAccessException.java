@@ -2,6 +2,9 @@ package fr.epita.quiz.exception;
 
 public class DataAccessException extends Exception {
 	
+	private static final long serialVersionUID = -8446384785560273367L;
+
+
 	public Object getFaultInstance() {
 		return faultInstance;
 	}

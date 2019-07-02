@@ -21,8 +21,8 @@ public class Candidate extends JFrame {
 	private JPanel mainPane;
 	private JTextField unameTxtFld;
 	private JTextField nameTxtFld;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JPasswordField pwdFld;
+	private JPasswordField pwdFld2;
 	private JTextField unameTxtFld_r;
 	private static QuizJDBCDAO dao = QuizJDBCDAO.getInstance();
 
@@ -74,13 +74,13 @@ public class Candidate extends JFrame {
 		mainPane.add(nameTxtFld);
 		nameTxtFld.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(101, 110, 86, 20);
-		mainPane.add(passwordField);
+		pwdFld = new JPasswordField();
+		pwdFld.setBounds(101, 110, 86, 20);
+		mainPane.add(pwdFld);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(316, 153, 86, 20);
-		mainPane.add(passwordField_1);
+		pwdFld2 = new JPasswordField();
+		pwdFld2.setBounds(316, 153, 86, 20);
+		mainPane.add(pwdFld2);
 		
 		unameTxtFld_r = new JTextField();
 		unameTxtFld_r.setBounds(316, 110, 86, 20);
@@ -89,10 +89,11 @@ public class Candidate extends JFrame {
 		
 		JButton lgnBtn = new JButton("Login");
 		lgnBtn.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				boolean isAuth = false;
 				try {
-					isAuth = dao.candidateLogin( unameTxtFld.getText(), passwordField.getText()); 
+					isAuth = dao.candidateLogin( unameTxtFld.getText(), pwdFld.getText()); 
 					if(isAuth)
 					{
 						String uname=unameTxtFld.getText();
@@ -115,9 +116,10 @@ public class Candidate extends JFrame {
 		registerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean isRegister = dao.candidateRegister(nameTxtFld.getText(), unameTxtFld_r.getText(),passwordField_1.getText());
+					@SuppressWarnings("deprecation")
+					boolean isRegister = dao.candidateRegister(nameTxtFld.getText(), unameTxtFld_r.getText(),pwdFld2.getText());
 					if(isRegister) {
-					JOptionPane.showMessageDialog(null, "Candidate have registered.");
+					JOptionPane.showMessageDialog(null, "Candidate have registered Successfully.");
 					}
 				}catch (Exception e1) {
 					e1.printStackTrace();

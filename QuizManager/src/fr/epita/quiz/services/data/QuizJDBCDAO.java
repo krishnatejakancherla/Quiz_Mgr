@@ -22,13 +22,19 @@ public class QuizJDBCDAO {
 
 	private static QuizJDBCDAO instance;
 
-	private static final String INSERT_QUERY = "INSERT into QUIZ (name) values(?)";
+	private static final String INSERT_QUERY = "INSERT INTO QUIZ (name) values(?)";
 	private static final String UPDATE_QUERY = "UPDATE QUIZ SET NAME=? WHERE ID = ?";
-
-	private static final String INSERT_QA = "INSERT into QUESTION (id, content, topics, difficulty, answer, choiceA, choiceB, choiceC, choiceD) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_QA = "INSERT INTO QUESTION (id, content, topics, difficulty, answer, choiceA, choiceB, choiceC, choiceD) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_QA = "UPDATE QUESTION SET CONTENT=?, TOPICS=?, DIFFICULTY=?, ANSWER=?, CHOICEA=?, CHOICEB=?, CHOICEC=?, CHOICED=?    WHERE QID =?";
 	private static final String DELETE_QA = "DELETE FROM QUESTION  WHERE QID=?";
 	private static final String DELETE_ALL_QA = "DELETE FROM QUESTION  WHERE ID =?";
+	private static final String EXPORT_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY FROM QUESTION";
+	private static final String RET_QUERY = "SELECT ID, NAME FROM QUIZ";
+	private static final String RET_ALL_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED FROM QUESTION WHERE TOPICS=?";
+	private static final String CDT_QUERY = "SELECT * FROM CANDIDATE WHERE UNAME=? AND PASSWD=?";
+	private static final String CDT_REG_QUERY = "INSERT INTO CANDIDATE (name,uname,passwd) VALUES (?, ?, ?) ";
+	private static final String RET_QUES_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED from QUESTION WHERE QID=?";
+	
 	private static boolean isAuth = false;
 
 
@@ -192,7 +198,7 @@ public class QuizJDBCDAO {
 	public List<Quiz> retreiveTitle() {
 		List<Quiz> quizList = new ArrayList<>();
 		try (Connection connection = getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("select ID, NAME from QUIZ")) {
+				PreparedStatement pstmt = connection.prepareStatement(RET_QUERY)) {
 
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -214,7 +220,7 @@ public class QuizJDBCDAO {
 		List<Answer> ansList = new ArrayList<>();
 
 			try (Connection connection = getConnection();
-					PreparedStatement pstmt = connection.prepareStatement("select QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED from QUESTION WHERE TOPICS=?")) {
+					PreparedStatement pstmt = connection.prepareStatement(RET_ALL_QUERY)) {
 				pstmt.setString(1, string);
 				ResultSet rs = pstmt.executeQuery();
 				
@@ -247,7 +253,7 @@ public class QuizJDBCDAO {
 	public boolean candidateLogin(String uname, String pwd) {
 		
 		try (Connection connection = getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("select * from candidate where uname=? and passwd=?");) {
+				PreparedStatement pstmt = connection.prepareStatement(CDT_QUERY);) {
 			pstmt.setString(1, uname);
 			pstmt.setString(2, pwd);
 			ResultSet rs =pstmt.executeQuery();
@@ -267,7 +273,7 @@ public class QuizJDBCDAO {
 	public boolean candidateRegister(String name, String uname, String pwd) {
 		boolean isCandAuth = false;
 		try (Connection connection = getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("INSERT INTO candidate (name,uname,passwd) VALUES (?, ?, ?) ");) {
+				PreparedStatement pstmt = connection.prepareStatement(CDT_REG_QUERY);) {
 			pstmt.setString(1, name);
 			pstmt.setString(2, uname);
 			pstmt.setString(3, pwd);
@@ -282,7 +288,7 @@ public class QuizJDBCDAO {
 		List<Question> qList = new ArrayList<>();
 
 		try (Connection connection = getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("select QID, CONTENT, TOPICS, DIFFICULTY from QUESTION")) {
+				PreparedStatement pstmt = connection.prepareStatement(EXPORT_QUERY)) {
 			ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			Question ques = new Question(0, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
@@ -298,16 +304,21 @@ public class QuizJDBCDAO {
 		HashMap<String, String> retMap = new HashMap<String, String>();
 
 		try (Connection connection = getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("select QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED from QUESTION WHERE QID=?")) {
+				PreparedStatement pstmt = connection.prepareStatement(RET_QUES_QUERY)) {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			
 		while (rs.next()) {
-			  retMap.put("QID", rs.getString(1)); retMap.put("CONTENT", rs.getString(2));
-			  retMap.put("TOPICS", rs.getString(3)); retMap.put("DIFFICULTY",
-			  rs.getString(4)); retMap.put("ANSWER", rs.getString(5));
-			  retMap.put("CHOICEA", rs.getString(6)); retMap.put("CHOICEB",
-			  rs.getString(7)); retMap.put("CHOICEC", rs.getString(8));
+			  retMap.put("QID", rs.getString(1)); 
+			  retMap.put("CONTENT", rs.getString(2));
+			  retMap.put("TOPICS", rs.getString(3)); 
+			  retMap.put("DIFFICULTY",
+			  rs.getString(4)); 
+			  retMap.put("ANSWER", rs.getString(5));
+			  retMap.put("CHOICEA", rs.getString(6)); 
+			  retMap.put("CHOICEB",
+			  rs.getString(7)); 
+			  retMap.put("CHOICEC", rs.getString(8));
 			  retMap.put("CHOICED", rs.getString(9));
 
 		}

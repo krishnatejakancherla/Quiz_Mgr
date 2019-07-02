@@ -47,7 +47,7 @@ public class CandidateQuiz extends JFrame {
 		mainPane.setLayout(null);
 		
 		JLabel titleLbl = new JLabel("Hello " +uname+ ", Welcome to Quiz Exam");
-		titleLbl.setBounds(211, 11, 146, 14);
+		titleLbl.setBounds(121, 11, 206, 14);
 		mainPane.add(titleLbl);
 		try {
 			Connection connection = getConnection();
@@ -174,7 +174,7 @@ public class CandidateQuiz extends JFrame {
 					}
 				}
 			});
-			nxtBtn.setBounds(295, 370, 89, 23);
+			nxtBtn.setBounds(180, 435, 89, 23);
 			mainPane.add(nxtBtn);
 			JButton endBtn = new JButton("End");
 			endBtn.addActionListener(new ActionListener() {
@@ -184,7 +184,7 @@ public class CandidateQuiz extends JFrame {
 					setVisible(false);
 				}
 			});
-			endBtn.setBounds(180, 435, 89, 23);
+			endBtn.setBounds(180, 495, 89, 23);
 			mainPane.add(endBtn);
 			
 			
