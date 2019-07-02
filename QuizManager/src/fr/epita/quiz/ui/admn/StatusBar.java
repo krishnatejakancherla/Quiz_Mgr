@@ -1,4 +1,4 @@
-package fr.epita.quiz.ui;
+package fr.epita.quiz.ui.admn;
 
 import javax.swing.JLabel;
 

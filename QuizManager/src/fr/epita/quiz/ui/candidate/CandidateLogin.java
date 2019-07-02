@@ -1,4 +1,4 @@
-package fr.epita.quiz.ui;
+package fr.epita.quiz.ui.candidate;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

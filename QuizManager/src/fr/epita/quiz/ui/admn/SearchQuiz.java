@@ -1,4 +1,4 @@
-package fr.epita.quiz.ui;
+package fr.epita.quiz.ui.admn;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

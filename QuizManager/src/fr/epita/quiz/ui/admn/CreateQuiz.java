@@ -1,4 +1,4 @@
-package fr.epita.quiz.ui;
+package fr.epita.quiz.ui.admn;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

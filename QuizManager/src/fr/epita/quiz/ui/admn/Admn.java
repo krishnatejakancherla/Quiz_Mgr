@@ -1,4 +1,4 @@
-package fr.epita.quiz.ui;
+package fr.epita.quiz.ui.admn;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import fr.epita.quiz.ui.Main;
 
 public class Admn extends JFrame {
 

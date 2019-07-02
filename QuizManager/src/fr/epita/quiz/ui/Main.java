@@ -8,11 +8,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import fr.epita.quiz.ui.admn.Admn;
+import fr.epita.quiz.ui.admn.StatusBar;
+import fr.epita.quiz.ui.candidate.Candidate;
+
 public class Main extends JFrame {
 	private static final long serialVersionUID = -2728957700299762075L;
 	private StatusBar statusBar;
 
-	Main() {
+	public Main() {
 		JFrame frame = new JFrame("Quiz Manager");
 		JButton admn, candidate;
 		admn = new JButton("Admin");
