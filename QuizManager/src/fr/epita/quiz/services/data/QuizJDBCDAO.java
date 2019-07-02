@@ -305,7 +305,7 @@ public class QuizJDBCDAO {
 
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(RET_QUES_QUERY)) {
-			pstmt.setInt(1, id);
+			 pstmt.setInt(1, id);
 			ResultSet rs =  pstmt.executeQuery();
 			
 		while (rs.next()) {
