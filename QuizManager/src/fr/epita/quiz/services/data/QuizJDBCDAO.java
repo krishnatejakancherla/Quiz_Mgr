@@ -150,15 +150,7 @@ public class QuizJDBCDAO {
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_QA);) {
 			
-			System.out.println("DAO Answer : "+ans.getQuestion().getContent()+
-					 " - - "+ans.getQuestion().getTopics()+
-					 " - - "+ans.getQuestion().getDifficulty()+
-					 " - - "+ans.getText()+
-					 " - - "+ans.getMultChce().getChcA()+
-					 " - - "+ans.getMultChce().getChcB()+
-					 " - - "+ans.getMultChce().getChcC()+
-					 " - - "+ans.getMultChce().getChcD()+
-					 " - - "+ans.getQuestion().getQid() );
+	
 			
 			pstmt.setString(1, ans.getQuestion().getContent());
 			pstmt.setString(2, ans.getQuestion().getTopics());
@@ -273,17 +265,17 @@ public class QuizJDBCDAO {
 	}
 
 	public boolean candidateRegister(String name, String uname, String pwd) {
-		boolean isAuth = false;
+		boolean isCandAuth = false;
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement("INSERT INTO candidate (name,uname,passwd) VALUES (?, ?, ?) ");) {
 			pstmt.setString(1, name);
 			pstmt.setString(2, uname);
 			pstmt.setString(3, pwd);
 			pstmt.execute();
-			isAuth = true;
+			isCandAuth = true;
 			} catch (SQLException sqle) {
 		}
-		return isAuth;
+		return isCandAuth;
 	}
 
 	public List<Question> exportQuiz() {

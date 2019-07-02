@@ -25,7 +25,7 @@ public class TestWriteDatamodelInstancesInFile {
 		//then ?
 		Quiz readQuiz = readQuiz(file);
 		if (!readQuiz.equals(quiz)) {
-			throw new Exception("read value is different from written values");
+			throw new IOException("read value is different from written values");
 		}else {
 			System.out.println("test success!");
 		}

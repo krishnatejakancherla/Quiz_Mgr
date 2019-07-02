@@ -2,8 +2,6 @@ package fr.epita.quiz.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -196,7 +194,7 @@ public class CandidateQuiz extends JFrame {
 
 	
 	
-	private Connection getConnection() throws SQLException, FileNotFoundException, IOException {
+	private Connection getConnection() throws SQLException {
 			String url = "jdbc:h2:~/test";
 			String username = "sa";
 			String password = "";

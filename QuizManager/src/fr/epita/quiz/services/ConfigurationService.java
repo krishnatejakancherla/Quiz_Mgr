@@ -8,7 +8,6 @@ public class ConfigurationService {
 
 	private static ConfigurationService instance;
 	
-	private static final String defaultConfigFileLocation = "conf.properties";
 
 	
 	

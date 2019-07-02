@@ -1,7 +1,5 @@
 package fr.epita.quiz.datamodel;
 
-import java.util.Arrays;
-
 public class Question {
 	
 	private String content;
@@ -21,7 +19,6 @@ public class Question {
 	
 	
 	public Question() {
-		// TODO Auto-generated constructor stub
 	}
 
 

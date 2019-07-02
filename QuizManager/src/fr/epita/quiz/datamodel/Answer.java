@@ -2,7 +2,7 @@ package fr.epita.quiz.datamodel;
 
 public class Answer {
 	
-	private String answer;
+	private String ans;
 	private Quiz quiz;
 	private Question question;
 	private MultChoice multChce;
@@ -39,22 +39,22 @@ public class Answer {
 
 
 	public Answer(String answer) {
-		this.answer = answer;
+		this.ans = answer;
 	}
 	
 	
 	public String getText() {
-		return answer;
+		return ans;
 	}
 
 	public void setText(String answer) {
-		this.answer = answer;
+		this.ans = answer;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Answer \t[text=" + answer + ", \n quiz=" + quiz + ", \n question=" + question + "\n]";
+		return "Answer \t[text=" + ans + ", \n quiz=" + quiz + ", \n question=" + question + "\n]";
 	}
 	
 	

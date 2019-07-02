@@ -91,7 +91,6 @@ public class SearchQuiz extends JFrame {
 		JScrollPane scroll = new JScrollPane(table);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		String textvalue = textbox.getText();
 		int id = 0;
 		String content = "";
 		String topic = "";

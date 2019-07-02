@@ -25,7 +25,7 @@ public class TestQuizJDBCDAO {
 		//then
 		List<Quiz> list = dao.search(new Quiz("Java"));
 		if (list.isEmpty()) {
-			throw new Exception("the list was empty");
+			throw new NullPointerException("the list was empty");
 		}
 		
 		System.out.println(list);

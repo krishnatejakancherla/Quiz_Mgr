@@ -25,11 +25,9 @@ public class TestDatabase {
 		pstmt.setString(1,"Test");
 		pstmt.setString(2, "Test Quiz");
 		pstmt.execute();
-		// TODO get the generated ID
 		ResultSet rs = pstmt.getGeneratedKeys();
 		int id = rs.getInt(1);
 		System.out.println("generated ID : " + id);
-//		
 		
 		rs.close();
 		pstmt.close();
