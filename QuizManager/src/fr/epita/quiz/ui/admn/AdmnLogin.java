@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.itextpdf.text.DocumentException;
+
 import fr.epita.quiz.datamodel.Question;
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 import fr.epita.quiz.ui.Main;
@@ -83,13 +85,13 @@ public class AdmnLogin extends JFrame {
 		JButton expBtn = new JButton("Export Quiz");
 		expBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<Question> ques = dao.exportQuiz();
 				try {
-					boolean isSucc = exportQues(ques);
+
+					boolean isSucc = dao.exportQuiz();
 					if (isSucc) {
-						JOptionPane.showMessageDialog(null, "Question has been exported successfully");
+						JOptionPane.showMessageDialog(null, "Question has been exported to PDF successfully");
 					}
-				} catch (IOException e1) {
+				} catch (IOException | DocumentException e1) {
 					e1.printStackTrace();
 				}
 			}

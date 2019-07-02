@@ -1,5 +1,7 @@
 package fr.epita.quiz.services.data;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.epita.quiz.datamodel.Answer;
 import fr.epita.quiz.datamodel.MultChoice;
@@ -18,6 +27,10 @@ import fr.epita.quiz.exception.SearchFailedException;
 import fr.epita.quiz.services.ConfigEntry;
 import fr.epita.quiz.services.ConfigurationService;
 
+/**
+ * 
+ * @author Krishna DAO Layer
+ */
 public class QuizJDBCDAO {
 
 	private static QuizJDBCDAO instance;
@@ -34,9 +47,8 @@ public class QuizJDBCDAO {
 	private static final String CDT_QUERY = "SELECT * FROM CANDIDATE WHERE UNAME=? AND PASSWD=?";
 	private static final String CDT_REG_QUERY = "INSERT INTO CANDIDATE (name,uname,passwd) VALUES (?, ?, ?) ";
 	private static final String RET_QUES_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED from QUESTION WHERE QID=?";
-	
-	private static boolean isAuth = false;
 
+	private static boolean isAuth = false;
 
 	private QuizJDBCDAO() {
 
@@ -49,6 +61,12 @@ public class QuizJDBCDAO {
 		return instance;
 	}
 
+	/**
+	 * Method for getting Connection status
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	private Connection getConnection() throws SQLException {
 		System.out.println("Connection Before");
 
@@ -100,6 +118,12 @@ public class QuizJDBCDAO {
 
 	}
 
+	/**
+	 * 
+	 * @param quizCriterion
+	 * @return
+	 * @throws SearchFailedException
+	 */
 	public List<Quiz> search(Quiz quizCriterion) throws SearchFailedException {
 		String searchQuery = ConfigurationService.getInstance()
 				.getConfigurationValue(ConfigEntry.DB_QUERIES_QUIZ_SEARCHQUERY, "");
@@ -127,6 +151,12 @@ public class QuizJDBCDAO {
 		return quizList;
 	}
 
+	/**
+	 * 
+	 * @param ans
+	 * @return
+	 * @throws CreateFailedException
+	 */
 	public boolean createQues(Answer ans) throws CreateFailedException {
 		boolean isSucc = false;
 		try (Connection connection = getConnection();
@@ -150,14 +180,18 @@ public class QuizJDBCDAO {
 		return isSucc;
 
 	}
-	
+
+	/**
+	 * 
+	 * @param ans
+	 * @return
+	 * @throws CreateFailedException
+	 */
 	public boolean updtQues(Answer ans) throws CreateFailedException {
 		boolean isSucc = false;
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_QA);) {
-			
-	
-			
+
 			pstmt.setString(1, ans.getQuestion().getContent());
 			pstmt.setString(2, ans.getQuestion().getTopics());
 			pstmt.setInt(3, ans.getQuestion().getDifficulty());
@@ -168,7 +202,6 @@ public class QuizJDBCDAO {
 			pstmt.setString(8, ans.getMultChce().getChcD());
 			pstmt.setInt(9, ans.getQuestion().getQid());
 
-
 			pstmt.execute();
 			isSucc = true;
 
@@ -178,8 +211,13 @@ public class QuizJDBCDAO {
 		return isSucc;
 
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param qid
+	 * @return
+	 * @throws CreateFailedException
+	 */
 	public boolean delQues(int qid) throws CreateFailedException {
 		boolean isSucc = false;
 		try (Connection connection = getConnection();
@@ -195,6 +233,10 @@ public class QuizJDBCDAO {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Quiz> retreiveTitle() {
 		List<Quiz> quizList = new ArrayList<>();
 		try (Connection connection = getConnection();
@@ -216,30 +258,30 @@ public class QuizJDBCDAO {
 
 	}
 
-	public List<Answer> retreiveAllQues(String string){
+	/**
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public List<Answer> retreiveAllQues(String string) {
 		List<Answer> ansList = new ArrayList<>();
 
-			try (Connection connection = getConnection();
-					PreparedStatement pstmt = connection.prepareStatement(RET_ALL_QUERY)) {
-				pstmt.setString(1, string);
-				ResultSet rs = pstmt.executeQuery();
-				
+		try (Connection connection = getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(RET_ALL_QUERY)) {
+			pstmt.setString(1, string);
+			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
-				
-				
-				System.out.println(rs.getInt(1) + " -- " + rs.getString(2) +
-			" -- " +rs.getString(3)+ " -- " +rs.getInt(4)+ " -- " + rs.getString(5) +
-			" -- " + rs.getString(6) +
-			" -- " + rs.getString(7) +
-			" -- " + rs.getString(8) +
-			" -- " + rs.getString(9));
-				
+
+				System.out.println(rs.getInt(1) + " -- " + rs.getString(2) + " -- " + rs.getString(3) + " -- "
+						+ rs.getInt(4) + " -- " + rs.getString(5) + " -- " + rs.getString(6) + " -- " + rs.getString(7)
+						+ " -- " + rs.getString(8) + " -- " + rs.getString(9));
+
 				Answer ans = new Answer(rs.getString(5));
 				ans.setQuestion(new Question(0, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
 				ans.setMultChce(new MultChoice(rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9)));
-				
-				ansList.add(ans);
 
+				ansList.add(ans);
 
 			}
 
@@ -248,28 +290,41 @@ public class QuizJDBCDAO {
 		}
 		return ansList;
 
-		}
+	}
 
+	/**
+	 * 
+	 * @param uname
+	 * @param pwd
+	 * @return
+	 */
 	public boolean candidateLogin(String uname, String pwd) {
-		
+
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(CDT_QUERY);) {
 			pstmt.setString(1, uname);
 			pstmt.setString(2, pwd);
-			ResultSet rs =pstmt.executeQuery();
-			System.out.println("rs.next()::"+rs.next());
-			System.out.println(rs.getString("uname")+ " ==== " +uname);
-			System.out.println(rs.getString("passwd")+ " ==== " +pwd);
+			ResultSet rs = pstmt.executeQuery();
+			System.out.println("rs.next()::" + rs.next());
+			System.out.println(rs.getString("uname") + " ==== " + uname);
+			System.out.println(rs.getString("passwd") + " ==== " + pwd);
 
-			if((rs.getString("uname").equals(uname)) && (rs.getString("passwd").equals(pwd) )) {
+			if ((rs.getString("uname").equals(uname)) && (rs.getString("passwd").equals(pwd))) {
 				isAuth = true;
 
 			}
-			} catch (SQLException sqle) {
+		} catch (SQLException sqle) {
 		}
 		return isAuth;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param uname
+	 * @param pwd
+	 * @return
+	 */
 	public boolean candidateRegister(String name, String uname, String pwd) {
 		boolean isCandAuth = false;
 		try (Connection connection = getConnection();
@@ -279,56 +334,95 @@ public class QuizJDBCDAO {
 			pstmt.setString(3, pwd);
 			pstmt.execute();
 			isCandAuth = true;
-			} catch (SQLException sqle) {
+		} catch (SQLException sqle) {
 		}
 		return isCandAuth;
 	}
 
-	public List<Question> exportQuiz() {
-		List<Question> qList = new ArrayList<>();
-
+	/**
+	 * 
+	 * @return
+	 * @throws DocumentException
+	 * @throws FileNotFoundException
+	 */
+	public boolean exportQuiz() throws FileNotFoundException, DocumentException {
+		//List<Question> qList = new ArrayList<>();
+		boolean isExpSucc = false;
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(EXPORT_QUERY)) {
 			ResultSet rs = pstmt.executeQuery();
-		while (rs.next()) {
-			Question ques = new Question(0, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
-			qList.add(ques);
+
+			Document docRpt = new Document();
+			PdfWriter.getInstance(docRpt, new FileOutputStream("Quiz.pdf"));
+			docRpt.open();
+			PdfPTable col = new PdfPTable(4);
+			col.addCell("ID");
+			col.addCell("Question");
+			col.addCell("Topic");
+			col.addCell("Difficulty");
+
+			PdfPCell tblCell;
+			while (rs.next()) {
+
+				String qid = rs.getString("QID");
+				tblCell = new PdfPCell(new Phrase(qid));
+				col.addCell(tblCell);
+				String content = rs.getString("CONTENT");
+				tblCell = new PdfPCell(new Phrase(content));
+				col.addCell(tblCell);
+				String topics = rs.getString("TOPICS");
+				tblCell = new PdfPCell(new Phrase(topics));
+				col.addCell(tblCell);
+				String diff = rs.getString("DIFFICULTY");
+				tblCell = new PdfPCell(new Phrase(diff));
+				col.addCell(tblCell);
+
+				/*
+				 * Question ques = new Question(0, rs.getInt(1), rs.getString(2),
+				 * rs.getString(3), rs.getInt(4)); qList.add(ques);
+				 */
+
+			}
+			docRpt.add(col);
+			docRpt.close();
+			isExpSucc = true;
+			rs.close();
+		} catch (SQLException e) {
 		}
-		rs.close();
-	} catch (SQLException e) {
-	}
-	return qList;
+		return isExpSucc;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public HashMap<String, String> retreiveQues(int id) {
 		HashMap<String, String> retMap = new HashMap<String, String>();
 
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(RET_QUES_QUERY)) {
-			 pstmt.setInt(1, id);
-			ResultSet rs =  pstmt.executeQuery();
-			
-		while (rs.next()) {
-			  retMap.put("QID", rs.getString(1)); 
-			  retMap.put("CONTENT", rs.getString(2));
-			  retMap.put("TOPICS", rs.getString(3)); 
-			  retMap.put("DIFFICULTY",
-			  rs.getString(4)); 
-			  retMap.put("ANSWER", rs.getString(5));
-			  retMap.put("CHOICEA", rs.getString(6)); 
-			  retMap.put("CHOICEB",
-			  rs.getString(7)); 
-			  retMap.put("CHOICEC", rs.getString(8));
-			  retMap.put("CHOICED", rs.getString(9));
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
 
+			while (rs.next()) {
+				retMap.put("QID", rs.getString(1));
+				retMap.put("CONTENT", rs.getString(2));
+				retMap.put("TOPICS", rs.getString(3));
+				retMap.put("DIFFICULTY", rs.getString(4));
+				retMap.put("ANSWER", rs.getString(5));
+				retMap.put("CHOICEA", rs.getString(6));
+				retMap.put("CHOICEB", rs.getString(7));
+				retMap.put("CHOICEC", rs.getString(8));
+				retMap.put("CHOICED", rs.getString(9));
+
+			}
+
+			rs.close();
+		} catch (SQLException e) {
 		}
-
-		rs.close();
-	} catch (SQLException e) {
-	}
-	return retMap;
+		return retMap;
 
 	}
 
-	
 }
