@@ -15,6 +15,11 @@ import fr.epita.quiz.datamodel.Quiz;
 import fr.epita.quiz.exception.CreateFailedException;
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 
+/**
+ * 
+ * @author Krishna, Abhinga
+ *
+ */
 public class QuizJDBCDAOTest {
 
 	private static QuizJDBCDAO dao = QuizJDBCDAO.getInstance();
