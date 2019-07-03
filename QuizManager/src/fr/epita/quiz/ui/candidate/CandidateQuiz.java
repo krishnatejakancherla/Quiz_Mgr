@@ -52,10 +52,10 @@ public class CandidateQuiz extends JFrame {
 		titleLbl.setBounds(121, 11, 206, 14);
 		mainPane.add(titleLbl);
 		try {
-			Connection connection = getConnection();
-			String query = "SELECT QID, CONTENT, CHOICEA, CHOICEB, CHOICEC, CHOICED, ANSWER FROM QUESTION  WHERE TOPICS=? and DIFFICULTY=?";
+			Connection conn = getConnection();
+			String RETQUES_QUERY = "SELECT QID, CONTENT, CHOICEA, CHOICEB, CHOICEC, CHOICED, ANSWER FROM QUESTION  WHERE TOPICS=? and DIFFICULTY=?";
 			 
-			PreparedStatement pstmt = connection.prepareStatement(query);
+			PreparedStatement pstmt = conn.prepareStatement(RETQUES_QUERY);
 			pstmt.setString(1, topic);
 			pstmt.setInt(2, diff);
 			 ResultSet rs = pstmt.executeQuery();

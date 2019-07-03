@@ -33,7 +33,7 @@ public class QuizJDBCDAOTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void createQuesTest() throws CreateFailedException, NullPointerException {
+	public void createQuesTest() throws CreateFailedException {
 		Answer ans = new Answer("Java");
 		boolean isSucc = dao.createQues(ans);
 		assertEquals(true, isSucc);

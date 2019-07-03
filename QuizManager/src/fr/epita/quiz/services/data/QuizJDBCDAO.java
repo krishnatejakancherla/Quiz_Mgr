@@ -160,7 +160,7 @@ public class QuizJDBCDAO {
 	 * @return
 	 * @throws CreateFailedException
 	 */
-	public boolean createQues(Answer ans) throws CreateFailedException, NullPointerException {
+	public boolean createQues(Answer ans) throws CreateFailedException {
 		boolean isSucc = false;
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_QA);) {
@@ -302,21 +302,15 @@ public class QuizJDBCDAO {
 	 * @return
 	 */
 	public boolean candidateLogin(String uname, String pwd) {
-		System.out.println(uname+" ---- "+pwd);
 
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(CDT_QUERY);) {
 			pstmt.setString(1, uname);
 			pstmt.setString(2, pwd);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println(rs.getString(1)+" ---- "+rs.getString(2));
-			System.out.println(uname+" ---- "+pwd);
 			if ((uname.equals(rs.getString("UNAME"))) && (pwd.equals(rs.getString("PASSWD")))) {
 				isAuth = true;
-				System.out.println("isAuth inside::"+isAuth);
-
 			}
-			System.out.println("isAuth outside::"+isAuth);
 
 		} catch (SQLException sqle) {
 		}
@@ -431,22 +425,17 @@ public class QuizJDBCDAO {
 	}
 
 	public boolean admLogin(String uname, String pwd) {
-		System.out.println(uname+" ---- "+pwd);
-
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(ADM_QUERY);) {
 			pstmt.setString(1, uname);
 			pstmt.setString(2, pwd);
 			ResultSet rs = pstmt.executeQuery();
 
-			System.out.println(rs.getString(1)+" ---- "+rs.getString(2));
-			System.out.println(uname+" ---- "+pwd);
 
 			if ((rs.getString(1).equals(uname)) && (rs.getString(2).equals(pwd))) {
 				isAuth = true;
 
 			}
-			System.out.println("isAuth DAO:::"+isAuth);
 		} catch (SQLException sqle) {
 		}
 		return isAuth;
