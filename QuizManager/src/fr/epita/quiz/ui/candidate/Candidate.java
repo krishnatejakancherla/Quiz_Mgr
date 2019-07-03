@@ -42,7 +42,7 @@ public class Candidate extends JFrame {
 		mainPane.add(lblLogin);
 		
 		JLabel lblSignUp = new JLabel("Register");
-		lblSignUp.setBounds(287, 16, 46, 14);
+		lblSignUp.setBounds(287, 20, 66, 20);
 		mainPane.add(lblSignUp);
 		
 		JLabel unameLbl = new JLabel("Username");
@@ -110,7 +110,7 @@ public class Candidate extends JFrame {
 				}
 			}
 		});
-		lgnBtn.setBounds(56, 173, 89, 23);
+		lgnBtn.setBounds(46, 227, 89, 23);
 		mainPane.add(lgnBtn);
 		
 		
@@ -128,7 +128,7 @@ public class Candidate extends JFrame {
 				}
 			}
 		});
-		registerBtn.setBounds(287, 211, 89, 23);
+		registerBtn.setBounds(287, 227, 89, 23);
 		mainPane.add(registerBtn);
 		JButton backBtn = new JButton("Back");
 		backBtn.addActionListener(new ActionListener() {
@@ -137,7 +137,7 @@ public class Candidate extends JFrame {
 				setVisible(false);
 			}
 		});
-		backBtn.setBounds(143, 227, 89, 23);
+		backBtn.setBounds(168, 227, 89, 23);
 		mainPane.add(backBtn);
 	}
 	
