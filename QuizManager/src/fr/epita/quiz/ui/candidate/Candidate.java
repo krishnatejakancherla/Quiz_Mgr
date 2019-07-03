@@ -95,6 +95,7 @@ public class Candidate extends JFrame {
 				boolean isAuth = false;
 				try {
 					isAuth = dao.candidateLogin( unameTxtFld.getText(), pwdFld.getText()); 
+					System.out.println("isAuth::"+isAuth);
 					if(isAuth)
 					{
 						String uname=unameTxtFld.getText();

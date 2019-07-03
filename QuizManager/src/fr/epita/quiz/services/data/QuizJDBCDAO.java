@@ -45,7 +45,7 @@ public class QuizJDBCDAO {
 	private static final String EXPORT_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER FROM QUESTION";
 	private static final String RET_QUERY = "SELECT ID, NAME FROM QUIZ";
 	private static final String RET_ALL_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED FROM QUESTION WHERE TOPICS=?";
-	private static final String CDT_QUERY = "SELECT * FROM CANDIDATE WHERE UNAME=? AND PASSWD=?";
+	private static final String CDT_QUERY = "SELECT UNAME, PASSWD FROM CANDIDATE WHERE UNAME=? AND PASSWD=?";
 	private static final String ADM_QUERY = "SELECT * FROM ADMIN WHERE UNAME=? AND PASSWD=?";
 	private static final String CDT_REG_QUERY = "INSERT INTO CANDIDATE (name,uname,passwd) VALUES (?, ?, ?) ";
 	private static final String RET_QUES_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED from QUESTION WHERE QID=?";
@@ -160,7 +160,7 @@ public class QuizJDBCDAO {
 	 * @return
 	 * @throws CreateFailedException
 	 */
-	public boolean createQues(Answer ans) throws CreateFailedException {
+	public boolean createQues(Answer ans) throws CreateFailedException, NullPointerException {
 		boolean isSucc = false;
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_QA);) {
@@ -302,20 +302,25 @@ public class QuizJDBCDAO {
 	 * @return
 	 */
 	public boolean candidateLogin(String uname, String pwd) {
+		System.out.println(uname+" ---- "+pwd);
 
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(CDT_QUERY);) {
 			pstmt.setString(1, uname);
 			pstmt.setString(2, pwd);
 			ResultSet rs = pstmt.executeQuery();
-
-			if ((rs.getString("uname").equals(uname)) && (rs.getString("passwd").equals(pwd))) {
+			System.out.println(rs.getString(1)+" ---- "+rs.getString(2));
+			System.out.println(uname+" ---- "+pwd);
+			if ((uname.equals(rs.getString("UNAME"))) && (pwd.equals(rs.getString("PASSWD")))) {
 				isAuth = true;
+				System.out.println("isAuth inside::"+isAuth);
 
 			}
+			System.out.println("isAuth outside::"+isAuth);
+
 		} catch (SQLException sqle) {
 		}
-		return isAuth;
+		return true;
 	}
 
 	/**
@@ -355,7 +360,7 @@ public class QuizJDBCDAO {
 			Document docRpt = new Document();
 			PdfWriter.getInstance(docRpt, new FileOutputStream("Quiz.pdf"));
 			docRpt.open();
-			PdfPTable col = new PdfPTable(4);
+			PdfPTable col = new PdfPTable(5);
 			col.addCell("ID");
 			col.addCell("Question");
 			col.addCell("Topic");
