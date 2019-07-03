@@ -1,5 +1,10 @@
 package fr.epita.quiz.exception;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * SearchFailedException
+ */
 public class SearchFailedException extends DataAccessException {
 
 	private static final long serialVersionUID = -3941189717606529626L;

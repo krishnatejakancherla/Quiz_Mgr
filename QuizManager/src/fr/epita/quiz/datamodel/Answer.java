@@ -1,7 +1,13 @@
 package fr.epita.quiz.datamodel;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * POJO for Answer
+ */
 public class Answer {
 	
+	// Variables
 	private String ans;
 	private Quiz quiz;
 	private Question question;

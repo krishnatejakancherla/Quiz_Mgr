@@ -1,5 +1,10 @@
 package fr.epita.quiz.exception;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * DataAccessException
+ */
 public class DataAccessException extends Exception {
 	
 	private static final long serialVersionUID = -8446384785560273367L;

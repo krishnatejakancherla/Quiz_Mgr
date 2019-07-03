@@ -1,5 +1,9 @@
 package fr.epita.quiz.datamodel;
-
+/**
+ * 
+ * @author Krishna, Abhigna
+ * POJO for Quiz
+ */
 public class Quiz {
 
 	

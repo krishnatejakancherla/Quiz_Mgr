@@ -1,5 +1,10 @@
 package fr.epita.quiz.datamodel;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * POJO for Question
+ */
 public class Question {
 	
 	private String content;

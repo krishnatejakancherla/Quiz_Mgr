@@ -15,9 +15,14 @@ import javax.swing.border.EmptyBorder;
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 import fr.epita.quiz.ui.Main;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * @Candidate Page
+ */
 public class Candidate extends JFrame {
 
-	
+	//Variable Declaration
 	private static final long serialVersionUID = -1197637509927212697L;
 	private JPanel mainPane;
 	private JTextField unameTxtFld;
@@ -88,7 +93,7 @@ public class Candidate extends JFrame {
 		mainPane.add(unameTxtFld_r);
 		unameTxtFld_r.setColumns(10);
 		
-		JButton lgnBtn = new JButton("Login");
+		JButton lgnBtn = new JButton("Login"); // Candidate Login
 		lgnBtn.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
@@ -114,7 +119,7 @@ public class Candidate extends JFrame {
 		mainPane.add(lgnBtn);
 		
 		
-		JButton registerBtn = new JButton("Sign Up");
+		JButton registerBtn = new JButton("Sign Up"); // Candidate Registration
 		registerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -130,7 +135,7 @@ public class Candidate extends JFrame {
 		});
 		registerBtn.setBounds(287, 227, 89, 23);
 		mainPane.add(registerBtn);
-		JButton backBtn = new JButton("Back");
+		JButton backBtn = new JButton("Back"); // Back to main page
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Main();

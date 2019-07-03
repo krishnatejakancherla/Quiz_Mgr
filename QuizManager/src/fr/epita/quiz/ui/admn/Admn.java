@@ -14,6 +14,11 @@ import javax.swing.border.EmptyBorder;
 
 import fr.epita.quiz.ui.Main;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * @Admin Protal
+ */
 public class Admn extends JFrame {
 
 
@@ -61,11 +66,11 @@ public class Admn extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				@SuppressWarnings("deprecation")
-				boolean isAuth = authenticate(unameFld.getText(), pwdFld.getText());
+				boolean isAuth = authenticate(unameFld.getText(), pwdFld.getText()); // Authentication for Admin
 				
 				if(isAuth)
 				{
-					new AdmnLogin();
+					new AdmnLogin(); // Admin Login for CRUD Operations
 					setVisible(false);
 				}
 				else {
@@ -90,6 +95,12 @@ public class Admn extends JFrame {
 
 	}
 
+	/**
+	 * 
+	 * @param uname
+	 * @param pwd
+	 * @return
+	 */
 	protected boolean authenticate(String uname, String pwd) {
 		return UNAME.equals(uname) && PWD.equals(pwd);
 	}

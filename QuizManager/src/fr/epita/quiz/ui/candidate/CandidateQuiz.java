@@ -26,6 +26,7 @@ import fr.epita.quiz.ui.Main;
  */
 public class CandidateQuiz extends JFrame {
 
+	// Variable initialisation
 	private static final long serialVersionUID = -4760051121978266140L;
 
 	private JPanel mainPane;
@@ -135,7 +136,7 @@ public class CandidateQuiz extends JFrame {
 					i++;
 				}
 			});
-			rcdBtn.setBounds(180, 372, 89, 23);
+			rcdBtn.setBounds(180, 372, 89, 23); // Records the Answer and proceed
 			rcdBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showMessageDialog(null, "Your Question has been recorded,  Please proceed to next Question");
@@ -143,7 +144,7 @@ public class CandidateQuiz extends JFrame {
 			});
 			mainPane.add(rcdBtn);
 			
-			JButton nxtBtn = new JButton("Next");
+			JButton nxtBtn = new JButton("Next"); // Proceeds to next question
 			nxtBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(ques[i]!=null)
@@ -178,7 +179,7 @@ public class CandidateQuiz extends JFrame {
 			});
 			nxtBtn.setBounds(180, 435, 89, 23);
 			mainPane.add(nxtBtn);
-			JButton endBtn = new JButton("End");
+			JButton endBtn = new JButton("End"); // Ends the Quiz and generates marks.
 			endBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JOptionPane.showMessageDialog(null, "The Quiz is Completed Successfully \n Your Score is : "+c);
@@ -195,7 +196,11 @@ public class CandidateQuiz extends JFrame {
 	
 
 	
-	
+	/**
+	 * @Get connection
+	 * @return
+	 * @throws SQLException
+	 */
 	private Connection getConnection() throws SQLException {
 			String url = "jdbc:h2:~/test";
 			String username = "sa";

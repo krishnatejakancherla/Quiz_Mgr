@@ -10,8 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * @version 1
+ */
 public class CandidateLogin extends JFrame {
 
+	//Variable Declaration
 	private static final long serialVersionUID = 5571572061570478099L;
 	private JPanel mainPane;
 	private JTextField topicTxtFld;
@@ -53,7 +59,7 @@ public class CandidateLogin extends JFrame {
 		diffTxtFld.setColumns(10);
 		
 		
-		JButton proceedBtn = new JButton("Proceed");
+		JButton proceedBtn = new JButton("Proceed"); // Proceed to Quiz
 		proceedBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String topic = topicTxtFld.getText();

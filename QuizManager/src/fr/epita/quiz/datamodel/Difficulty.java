@@ -1,5 +1,10 @@
 package fr.epita.quiz.datamodel;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * @enums
+ */
 public enum Difficulty {
 	VERY_EASY(0),
 	EASY(1),

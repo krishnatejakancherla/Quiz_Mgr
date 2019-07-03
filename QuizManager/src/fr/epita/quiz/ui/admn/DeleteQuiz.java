@@ -18,13 +18,16 @@ import javax.swing.JTable;
 
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class DeleteQuiz extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 6839934241297489798L;
 	
-	JFrame searchFrame, tableFrame, resultFrame;
+	JFrame searchFrame, tableFrame, resultFrame; // Frames
 	JLabel label;
 	JButton delBtn;
 	JPanel panel;
@@ -65,7 +68,7 @@ public class DeleteQuiz extends JFrame {
 
 		searchFrame.add(comboBox);
 		
-		delBtn = new JButton("Delete");
+		delBtn = new JButton("Delete"); // To delete Quiz
 		delBtn.setBounds(219, 200, 89, 23);
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +83,7 @@ public class DeleteQuiz extends JFrame {
 			}
 		});
 		searchFrame.add(delBtn);
-		JButton bckBtn = new JButton("Back");
+		JButton bckBtn = new JButton("Back"); // Back to Home
 		bckBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new AdmnLogin();

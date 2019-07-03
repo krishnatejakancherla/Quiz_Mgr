@@ -25,6 +25,11 @@ import fr.epita.quiz.datamodel.Question;
 import fr.epita.quiz.exception.CreateFailedException;
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class CreateQuiz extends JFrame {
 
 	private static final long serialVersionUID = -8988486909734440112L;
@@ -149,7 +154,7 @@ public class CreateQuiz extends JFrame {
 		pane.add(fldCrctAns);
 		fldCrctAns.setColumns(10);
 
-		JButton addBtn = new JButton("ADD");
+		JButton addBtn = new JButton("ADD");  // To add a Question
 		addBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -175,7 +180,7 @@ public class CreateQuiz extends JFrame {
 		addBtn.setBounds(9, 550, 89, 23);
 		pane.add(addBtn);
 
-		JButton updtBtn = new JButton("UPDATE");
+		JButton updtBtn = new JButton("UPDATE"); //To update a Question
 		updtBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -185,7 +190,6 @@ public class CreateQuiz extends JFrame {
 					ans.setQuestion(new Question(0, qid, quesFld.getText(), topicFld.getText(),
 							Integer.parseInt(diffFld.getText())));
 					ans.setMultChce(new MultChoice(fldA.getText(), fldB.getText(), fldC.getText(), fldD.getText()));
-					System.out.println("Answers:" + ans + " mmm " + qid);
 					boolean isSucc = dao.updtQues(ans);
 					if (isSucc) {
 						JOptionPane.showMessageDialog(null, "Question is Updated successfully");
@@ -198,7 +202,7 @@ public class CreateQuiz extends JFrame {
 		updtBtn.setBounds(99, 550, 89, 23);
 		pane.add(updtBtn);
 
-		JButton delBtn = new JButton("DELETE");
+		JButton delBtn = new JButton("DELETE"); // To delete Question
 		delBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -216,7 +220,7 @@ public class CreateQuiz extends JFrame {
 		delBtn.setBounds(199, 550, 89, 23);
 		pane.add(delBtn);
 
-		JButton bckBtn = new JButton("Back");
+		JButton bckBtn = new JButton("Back"); // Back to Main page
 		bckBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new AdmnLogin();
@@ -229,7 +233,7 @@ public class CreateQuiz extends JFrame {
 		statusBar.setPreferredSize(new Dimension(270, 420));
 		pane.add(statusBar, java.awt.BorderLayout.SOUTH);
 
-		if (mode == "UPDATE") {
+		if (mode == "UPDATE") { // Set Values in Frame based on the Mode of Operation
 			quesFld.setText(retMap.get("CONTENT"));
 			topicFld.setText(retMap.get("TOPICS"));
 			diffFld.setText(retMap.get("DIFFICULTY"));

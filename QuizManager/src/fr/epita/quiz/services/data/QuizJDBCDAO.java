@@ -29,7 +29,7 @@ import fr.epita.quiz.services.ConfigurationService;
 
 /**
  * 
- * @author Krishna 
+ * @author Krishna , Abhigna
  * DAO Layer
  */
 public class QuizJDBCDAO {
@@ -423,7 +423,12 @@ public class QuizJDBCDAO {
 		return retMap;
 
 	}
-
+	/**
+	 * 
+	 * @param uname
+	 * @param pwd
+	 * @return
+	 */
 	public boolean admLogin(String uname, String pwd) {
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(ADM_QUERY);) {

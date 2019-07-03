@@ -12,6 +12,11 @@ import fr.epita.quiz.ui.admn.Admn;
 import fr.epita.quiz.ui.admn.StatusBar;
 import fr.epita.quiz.ui.candidate.Candidate;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ * @Main class for launching application
+ */
 public class Main extends JFrame {
 	private static final long serialVersionUID = -2728957700299762075L;
 	private StatusBar statusBar;
@@ -22,14 +27,14 @@ public class Main extends JFrame {
 		admn = new JButton("Admin");
 		admn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Admn();
+				new Admn(); // To Admin Portal
 				setVisible(false);
 			}
 		});
 		candidate = new JButton("Candidate");
 		candidate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Candidate();
+				new Candidate(); // To Candidate Portal
 				setVisible(false);
 			}
 		});
@@ -46,7 +51,7 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Main();
+		new Main(); //Main Class initialises
 	}
 
 }

@@ -1,7 +1,13 @@
 package fr.epita.quiz.datamodel;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class MultChoice {
 
+	// VAriables
 	private String chcA;
 	private String chcB;
 	private String chcC;

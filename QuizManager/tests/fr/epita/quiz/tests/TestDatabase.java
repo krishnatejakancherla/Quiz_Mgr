@@ -6,20 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class TestDatabase {
 
 	public static void main(String[] args) throws SQLException {
-		
-		
 		Connection connection = getConnection();
-		
-		
 		search(connection);
-		
-		//
-		
-
-	
 		
 		PreparedStatement pstmt = connection.prepareStatement("update QUIZ set NAME = ? where name=?");
 		pstmt.setString(1,"Test");
@@ -33,11 +29,14 @@ public class TestDatabase {
 		pstmt.close();
 		connection.close();
 		
-		
-		
 
 	}
 
+	/**
+	 * 
+	 * @param connection
+	 * @throws SQLException
+	 */
 	private static void search(Connection connection) throws SQLException {
 		String query = "select ID, NAME from QUIZ";
 		
@@ -55,6 +54,11 @@ public class TestDatabase {
 		connection.close();
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Connection getConnection() throws SQLException {
 		Connection connection = DriverManager.getConnection("jdbc:h2:~/test","sa","");
 		System.out.println("Connection Success");

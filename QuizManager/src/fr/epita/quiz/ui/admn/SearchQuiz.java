@@ -21,17 +21,21 @@ import javax.swing.table.DefaultTableModel;
 import fr.epita.quiz.datamodel.Answer;
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class SearchQuiz extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6839934241297489798L;
+	//Local Variables
 	JFrame searchFrame, tableFrame, resultFrame;
 	JTextField textbox;
 	JLabel label;
 	JButton searchBtn;
 	JPanel panel;
-	static JTable table;
+	static JTable table; // table to display Question
 	private static QuizJDBCDAO dao = QuizJDBCDAO.getInstance();
 	private List<Answer> retList;
 	String[] columnNames = { "Id", "Question", "Topic", "Difficulty" };
@@ -53,7 +57,7 @@ public class SearchQuiz extends JFrame {
 
 		searchFrame.add(textbox);
 		searchFrame.add(label);
-		searchBtn = new JButton("search");
+		searchBtn = new JButton("search"); // To search Quiz
 		searchBtn.setBounds(120, 100, 100, 20);
 		searchBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -74,9 +78,12 @@ public class SearchQuiz extends JFrame {
 		bckBtn.setBounds(220, 100, 100, 20);
 		searchFrame.add(bckBtn);
 		searchFrame.setVisible(true);
-		// searchFrame.setSize(500, 400);
 	}
 
+	/**
+	 * 
+	 * @param retList
+	 */
 	public void showTableData(List<Answer> retList) {
 
 		resultFrame = new JFrame("List of Questions");

@@ -20,6 +20,11 @@ import fr.epita.quiz.datamodel.Question;
 import fr.epita.quiz.services.data.QuizJDBCDAO;
 import fr.epita.quiz.ui.Main;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class AdmnLogin extends JFrame {
 	
 	private static final long serialVersionUID = 5540687645487609987L;
@@ -48,7 +53,7 @@ public class AdmnLogin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				new CreateQuiz("ADD", null);
+				new CreateQuiz("ADD", null); //  to Create Questions
 				setVisible(false);
 			}
 		});
@@ -60,8 +65,8 @@ public class AdmnLogin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				SearchQuiz updt = new SearchQuiz();
-				updt.init();
+				SearchQuiz updt = new SearchQuiz(); 
+				updt.init();// to search Questions based 
 				setVisible(false);
 			}
 		});
@@ -75,7 +80,7 @@ public class AdmnLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				DeleteQuiz delQ = new DeleteQuiz();
-				delQ.init();
+				delQ.init(); // To delete Quiz
 				setVisible(false);
 			}
 		});
@@ -87,7 +92,7 @@ public class AdmnLogin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 
-					boolean isSucc = dao.exportQuiz();
+					boolean isSucc = dao.exportQuiz(); // To Export Quiz
 					if (isSucc) {
 						JOptionPane.showMessageDialog(null, "Question has been exported to PDF successfully");
 					}
@@ -102,7 +107,7 @@ public class AdmnLogin extends JFrame {
 		JButton hmeBtn = new JButton("Home");
 		hmeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Main();
+				new Main(); // Main home
 				setVisible(false);
 			}
 		});
@@ -110,6 +115,12 @@ public class AdmnLogin extends JFrame {
 		contentPane.add(hmeBtn);
 	}
 
+	/**
+	 * 
+	 * @param quesList
+	 * @return
+	 * @throws IOException
+	 */
 	public static boolean exportQues(List<Question> quesList) throws IOException {
 		final String FNAME = "Quiz.txt";
 		boolean isSucc = false;

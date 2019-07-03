@@ -1,5 +1,10 @@
 package fr.epita.quiz.exception;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class CreateFailedException extends DataAccessException{
 
 

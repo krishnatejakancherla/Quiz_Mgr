@@ -4,6 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+/**
+ * 
+ * @author Krishna, Abhigna
+ *
+ */
 public class ConfigurationService {
 
 	private static ConfigurationService instance;
@@ -15,7 +20,6 @@ public class ConfigurationService {
 	boolean init = false;
 	
 	private ConfigurationService() {
-		// properties loading
 		try {
 			File confFile = new File("conf.properties");
 			FileInputStream ips = new FileInputStream(confFile);
@@ -27,6 +31,10 @@ public class ConfigurationService {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static ConfigurationService getInstance() {
 		if (instance == null) {
 			instance = new ConfigurationService();
