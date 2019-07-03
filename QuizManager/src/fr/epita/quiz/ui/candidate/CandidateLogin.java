@@ -37,7 +37,7 @@ public class CandidateLogin extends JFrame {
 		mainPane.add(welcomeLbl);
 		
 		JLabel tpicDiffLbl = new JLabel("Select a Topic and the Difficulty(1 or 2 or 3) :");
-		tpicDiffLbl.setBounds(106, 36, 233, 14);
+		tpicDiffLbl.setBounds(106, 36, 253, 14);
 		mainPane.add(tpicDiffLbl);
 		
 		JLabel topicLbl = new JLabel("Topic");

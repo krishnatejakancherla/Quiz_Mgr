@@ -50,6 +50,10 @@ public class Main extends JFrame {
 
 	}
 
+	/**
+	 * Main Class Initialisation
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new Main(); //Main Class initialises
 	}

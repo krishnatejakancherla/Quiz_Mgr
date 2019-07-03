@@ -30,7 +30,7 @@ import fr.epita.quiz.services.ConfigurationService;
 /**
  * 
  * @author Krishna , Abhigna
- * DAO Layer
+ * DAO Layer performed for CRUD Operations
  */
 public class QuizJDBCDAO {
 
@@ -56,6 +56,10 @@ public class QuizJDBCDAO {
 
 	}
 
+	/**
+	 * Instance of the DAO Layer
+	 * @return
+	 */
 	public static QuizJDBCDAO getInstance() {
 		if (instance == null) {
 			instance = new QuizJDBCDAO();
@@ -122,7 +126,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * Search the Quiz based on given criteria
 	 * @param quizCriterion
 	 * @return
 	 * @throws SearchFailedException
@@ -155,7 +159,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * This method creates Questions and Answers with Choice based on the input provided by Admin
 	 * @param ans
 	 * @return
 	 * @throws CreateFailedException
@@ -185,7 +189,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category This updates Questions and Answers based on the User input provided 
 	 * @param ans
 	 * @return
 	 * @throws CreateFailedException
@@ -216,7 +220,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category this deletes the Questions based on the actions
 	 * @param qid
 	 * @return
 	 * @throws CreateFailedException
@@ -262,7 +266,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category This DAO method retreives all the questions based on the inuts 
 	 * @param string
 	 * @return
 	 */
@@ -296,7 +300,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category This method checks for the Login credentials of candidate who i going to take the quiz
 	 * @param uname
 	 * @param pwd
 	 * @return
@@ -318,7 +322,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category This method used for registering the Candidates with their details 
 	 * @param name
 	 * @param uname
 	 * @param pwd
@@ -339,13 +343,12 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category This exports the Entire Quiz with Questions and Answers into PDF format 
 	 * @return
 	 * @throws DocumentException
 	 * @throws FileNotFoundException
 	 */
 	public boolean exportQuiz() throws FileNotFoundException, DocumentException {
-		//List<Question> qList = new ArrayList<>();
 		boolean isExpSucc = false;
 		try (Connection connection = getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(EXPORT_QUERY)) {
@@ -392,7 +395,7 @@ public class QuizJDBCDAO {
 	}
 
 	/**
-	 * 
+	 * @category This Method retrieves Questions
 	 * @param id
 	 * @return
 	 */
@@ -424,7 +427,7 @@ public class QuizJDBCDAO {
 
 	}
 	/**
-	 * 
+	 * @category This check the Admin credentials 
 	 * @param uname
 	 * @param pwd
 	 * @return

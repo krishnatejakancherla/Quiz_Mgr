@@ -8,7 +8,7 @@ import fr.epita.quiz.datamodel.Answer;
 /**
  * 
  * @author Krishna, Abhigna
- * @AnsewrTest
+ * @AnswerTest
  *
  */
 public class AnswerTest {

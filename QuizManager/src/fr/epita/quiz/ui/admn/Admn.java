@@ -17,11 +17,11 @@ import fr.epita.quiz.ui.Main;
 /**
  * 
  * @author Krishna, Abhigna
- * @Admin Protal
+ * @Admin Portal 
  */
 public class Admn extends JFrame {
 
-
+	// Variable declarations
 	private static final long serialVersionUID = -6210137540705191878L;
 	private JPanel panel;
 	private JTextField unameFld;
@@ -96,7 +96,7 @@ public class Admn extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Admin Authentication based on provided username and password and returns boolean value
 	 * @param uname
 	 * @param pwd
 	 * @return
