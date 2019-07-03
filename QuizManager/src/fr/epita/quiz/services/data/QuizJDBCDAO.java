@@ -29,7 +29,8 @@ import fr.epita.quiz.services.ConfigurationService;
 
 /**
  * 
- * @author Krishna DAO Layer
+ * @author Krishna 
+ * DAO Layer
  */
 public class QuizJDBCDAO {
 
@@ -41,10 +42,11 @@ public class QuizJDBCDAO {
 	private static final String UPDATE_QA = "UPDATE QUESTION SET CONTENT=?, TOPICS=?, DIFFICULTY=?, ANSWER=?, CHOICEA=?, CHOICEB=?, CHOICEC=?, CHOICED=?    WHERE QID =?";
 	private static final String DELETE_QA = "DELETE FROM QUESTION  WHERE QID=?";
 	private static final String DELETE_ALL_QA = "DELETE FROM QUESTION  WHERE ID =?";
-	private static final String EXPORT_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY FROM QUESTION";
+	private static final String EXPORT_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER FROM QUESTION";
 	private static final String RET_QUERY = "SELECT ID, NAME FROM QUIZ";
 	private static final String RET_ALL_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED FROM QUESTION WHERE TOPICS=?";
 	private static final String CDT_QUERY = "SELECT * FROM CANDIDATE WHERE UNAME=? AND PASSWD=?";
+	private static final String ADM_QUERY = "SELECT * FROM ADMIN WHERE UNAME=? AND PASSWD=?";
 	private static final String CDT_REG_QUERY = "INSERT INTO CANDIDATE (name,uname,passwd) VALUES (?, ?, ?) ";
 	private static final String RET_QUES_QUERY = "SELECT QID, CONTENT, TOPICS, DIFFICULTY, ANSWER, CHOICEA, CHOICEB, CHOICEC, CHOICED from QUESTION WHERE QID=?";
 
@@ -75,6 +77,7 @@ public class QuizJDBCDAO {
 		String password = conf.getConfigurationValue("db.password", "");
 		String url = conf.getConfigurationValue("db.url", "");
 		Connection connection = DriverManager.getConnection(url, username, password);
+		System.out.println("Conn Succ:"+connection);
 		return connection;
 	}
 
@@ -305,9 +308,6 @@ public class QuizJDBCDAO {
 			pstmt.setString(1, uname);
 			pstmt.setString(2, pwd);
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("rs.next()::" + rs.next());
-			System.out.println(rs.getString("uname") + " ==== " + uname);
-			System.out.println(rs.getString("passwd") + " ==== " + pwd);
 
 			if ((rs.getString("uname").equals(uname)) && (rs.getString("passwd").equals(pwd))) {
 				isAuth = true;
@@ -360,6 +360,7 @@ public class QuizJDBCDAO {
 			col.addCell("Question");
 			col.addCell("Topic");
 			col.addCell("Difficulty");
+			col.addCell("Answer");
 
 			PdfPCell tblCell;
 			while (rs.next()) {
@@ -376,11 +377,10 @@ public class QuizJDBCDAO {
 				String diff = rs.getString("DIFFICULTY");
 				tblCell = new PdfPCell(new Phrase(diff));
 				col.addCell(tblCell);
+				String ans = rs.getString("ANSWER");
+				tblCell = new PdfPCell(new Phrase(ans));
+				col.addCell(tblCell);
 
-				/*
-				 * Question ques = new Question(0, rs.getInt(1), rs.getString(2),
-				 * rs.getString(3), rs.getInt(4)); qList.add(ques);
-				 */
 
 			}
 			docRpt.add(col);
@@ -423,6 +423,28 @@ public class QuizJDBCDAO {
 		}
 		return retMap;
 
+	}
+
+	public boolean admLogin(String uname, String pwd) {
+		System.out.println(uname+" ---- "+pwd);
+
+		try (Connection connection = getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(ADM_QUERY);) {
+			pstmt.setString(1, uname);
+			pstmt.setString(2, pwd);
+			ResultSet rs = pstmt.executeQuery();
+
+			System.out.println(rs.getString(1)+" ---- "+rs.getString(2));
+			System.out.println(uname+" ---- "+pwd);
+
+			if ((rs.getString(1).equals(uname)) && (rs.getString(2).equals(pwd))) {
+				isAuth = true;
+
+			}
+			System.out.println("isAuth DAO:::"+isAuth);
+		} catch (SQLException sqle) {
+		}
+		return isAuth;
 	}
 
 }
