@@ -28,6 +28,8 @@ public class Admn extends JFrame {
 	private JPasswordField pwdFld;
 	private static final String UNAME = "ADM";
 	private static final String PWD = "ADM";
+	private static final String UNM_PWD_MSG = "Please enter the username and password for login";
+	protected static final Object CHCK_MSG = "Please Check the Username and Password";
 	private StatusBar statusBar;
 
 	public Admn() {
@@ -40,7 +42,7 @@ public class Admn extends JFrame {
 		setContentPane(panel);
 		panel.setLayout(null);
 
-		JLabel lbl = new JLabel("Please enter the username and password for login");
+		JLabel lbl = new JLabel(UNM_PWD_MSG);
 		lbl.setBounds(23, 11, 411, 30);
 		panel.add(lbl);
 
@@ -74,7 +76,7 @@ public class Admn extends JFrame {
 					setVisible(false);
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Please Check the Username and Password");
+					JOptionPane.showMessageDialog(null, CHCK_MSG);
 				}
 			}
 		});

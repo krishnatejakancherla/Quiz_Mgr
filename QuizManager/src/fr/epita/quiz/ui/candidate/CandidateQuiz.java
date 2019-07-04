@@ -29,6 +29,10 @@ public class CandidateQuiz extends JFrame {
 	// Variable initialisation
 	private static final long serialVersionUID = -4760051121978266140L;
 
+	private static final String RETQUES_QUERY = "SELECT QID, CONTENT, CHOICEA, CHOICEB, CHOICEC, CHOICED, ANSWER FROM QUESTION  WHERE TOPICS=? and DIFFICULTY=?";
+	protected static final Object RCRD_BTN_MSG = "Your Question has been recorded,  Please proceed to next Question";
+	protected static final Object NXT_BTN_MSG = "You reached to End of the Quiz, Please End your Quiz";
+
 	private JPanel mainPane;
 
 	public int[] qid= new int[50];
@@ -49,12 +53,11 @@ public class CandidateQuiz extends JFrame {
 		setContentPane(mainPane);
 		mainPane.setLayout(null);
 		
-		JLabel titleLbl = new JLabel("Hello " +uname+ ", Welcome to Quiz Exam");
+		JLabel titleLbl = new JLabel("Hello " +uname+ ", Welcome to Quiz Exam.");
 		titleLbl.setBounds(121, 11, 206, 14);
 		mainPane.add(titleLbl);
 		try {
 			Connection conn = getConnection();
-			String RETQUES_QUERY = "SELECT QID, CONTENT, CHOICEA, CHOICEB, CHOICEC, CHOICED, ANSWER FROM QUESTION  WHERE TOPICS=? and DIFFICULTY=?";
 			 
 			PreparedStatement pstmt = conn.prepareStatement(RETQUES_QUERY);
 			pstmt.setString(1, topic);
@@ -139,7 +142,7 @@ public class CandidateQuiz extends JFrame {
 			rcdBtn.setBounds(180, 372, 89, 23); // Records the Answer and proceed
 			rcdBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Your Question has been recorded,  Please proceed to next Question");
+					JOptionPane.showMessageDialog(null, RCRD_BTN_MSG);
 				}
 			});
 			mainPane.add(rcdBtn);
@@ -170,7 +173,7 @@ public class CandidateQuiz extends JFrame {
 						
 						nxtBtn.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								JOptionPane.showMessageDialog(null, "You reached to End of the Quiz, Please End your Quiz");
+								JOptionPane.showMessageDialog(null, NXT_BTN_MSG);
 							}
 						});
 						

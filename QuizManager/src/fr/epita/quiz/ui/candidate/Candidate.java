@@ -24,6 +24,8 @@ public class Candidate extends JFrame {
 
 	//Variable Declaration
 	private static final long serialVersionUID = -1197637509927212697L;
+	protected static final Object CHK_UNAME_PWD = "Please check the Username and password.";
+	protected static final Object CDT_RGTR_SUC = "Candidate have registered Successfully.";
 	private JPanel mainPane;
 	private JTextField unameTxtFld;
 	private JTextField nameTxtFld;
@@ -108,7 +110,7 @@ public class Candidate extends JFrame {
 						setVisible(false);
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Please check the Username and password.");
+						JOptionPane.showMessageDialog(null, CHK_UNAME_PWD);
 					}
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -126,7 +128,7 @@ public class Candidate extends JFrame {
 					@SuppressWarnings("deprecation")
 					boolean isRegister = dao.candidateRegister(nameTxtFld.getText(), unameTxtFld_r.getText(),pwdFld2.getText());
 					if(isRegister) {
-					JOptionPane.showMessageDialog(null, "Candidate have registered Successfully.");
+					JOptionPane.showMessageDialog(null, CDT_RGTR_SUC);
 					}
 				}catch (Exception e1) {
 					e1.printStackTrace();

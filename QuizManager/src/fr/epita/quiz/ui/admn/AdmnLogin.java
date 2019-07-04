@@ -29,6 +29,14 @@ public class AdmnLogin extends JFrame {
 	
 	private static final long serialVersionUID = 5540687645487609987L;
 
+	private static final String WELCOME = "Welcome to Admin Console";
+
+	private static final String SEARCH = "Search Quiz";
+	private static final String DELETE = "Delete Quiz";
+	private static final String EXPORT = "Export Quiz";
+
+	protected static final String EXPORT_SUC_MSG = "Question has been exported to PDF successfully";
+
 	private JPanel contentPane;
 	private static QuizJDBCDAO dao = QuizJDBCDAO.getInstance();
 
@@ -43,7 +51,7 @@ public class AdmnLogin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Welcome to Admin Console");
+		JLabel lblNewLabel = new JLabel(WELCOME);
 		lblNewLabel.setBounds(96, 11, 307, 14);
 		contentPane.add(lblNewLabel);
 
@@ -60,7 +68,7 @@ public class AdmnLogin extends JFrame {
 		createBtn.setBounds(172, 48, 119, 23);
 		contentPane.add(createBtn);
 
-		JButton updateBtn = new JButton("Search Quiz");
+		JButton updateBtn = new JButton(SEARCH);
 		updateBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -73,7 +81,7 @@ public class AdmnLogin extends JFrame {
 		updateBtn.setBounds(172, 98, 119, 23);
 		contentPane.add(updateBtn);
 
-		JButton deleteBtn = new JButton("Delete Quiz");
+		JButton deleteBtn = new JButton(DELETE);
 		deleteBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -87,14 +95,14 @@ public class AdmnLogin extends JFrame {
 		deleteBtn.setBounds(172, 158, 119, 23);
 		contentPane.add(deleteBtn);
 
-		JButton expBtn = new JButton("Export Quiz");
+		JButton expBtn = new JButton(EXPORT);
 		expBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 
 					boolean isSucc = dao.exportQuiz(); // To Export Quiz
 					if (isSucc) {
-						JOptionPane.showMessageDialog(null, "Question has been exported to PDF successfully");
+						JOptionPane.showMessageDialog(null, EXPORT_SUC_MSG);
 					}
 				} catch (IOException | DocumentException e1) {
 					e1.printStackTrace();

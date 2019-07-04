@@ -26,6 +26,10 @@ import fr.epita.quiz.services.data.QuizJDBCDAO;
 public class DeleteQuiz extends JFrame {
 	
 	private static final long serialVersionUID = 6839934241297489798L;
+
+	protected static final String QUIZ_DEL_MSG = "Quiz  is Deleted successfully";
+
+	private static final String QUIZ_QUERY = "select ID, NAME from QUIZ";
 	
 	JFrame searchFrame, tableFrame, resultFrame; // Frames
 	JLabel label;
@@ -55,7 +59,7 @@ public class DeleteQuiz extends JFrame {
 		try {
 			con = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
 			Statement stat = con.createStatement();
-			ResultSet rs = stat.executeQuery("select ID, NAME from QUIZ");
+			ResultSet rs = stat.executeQuery(QUIZ_QUERY);
 			while (rs.next()) {
 				comboBox.addItem(rs.getString("ID") +" - "+rs.getString("NAME"));
 			}
@@ -78,7 +82,7 @@ public class DeleteQuiz extends JFrame {
 				boolean isSucc = dao.deleteQuiz(id);
 				
 				if (isSucc) {
-					JOptionPane.showMessageDialog(null, "Quiz  is Deleted successfully");
+					JOptionPane.showMessageDialog(null, QUIZ_DEL_MSG);
 				}
 			}
 		});

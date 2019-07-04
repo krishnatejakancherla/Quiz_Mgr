@@ -19,6 +19,7 @@ public class CandidateLogin extends JFrame {
 
 	//Variable Declaration
 	private static final long serialVersionUID = 5571572061570478099L;
+	private static final String SELCT_TOPIC = "Select a Topic and the Difficulty(1 or 2 or 3) :";
 	private JPanel mainPane;
 	private JTextField topicTxtFld;
 	private JTextField diffTxtFld;
@@ -36,7 +37,7 @@ public class CandidateLogin extends JFrame {
 		welcomeLbl.setBounds(137, 11, 222, 14);
 		mainPane.add(welcomeLbl);
 		
-		JLabel tpicDiffLbl = new JLabel("Select a Topic and the Difficulty(1 or 2 or 3) :");
+		JLabel tpicDiffLbl = new JLabel(SELCT_TOPIC);
 		tpicDiffLbl.setBounds(106, 36, 253, 14);
 		mainPane.add(tpicDiffLbl);
 		

@@ -74,14 +74,12 @@ public class QuizJDBCDAO {
 	 * @throws SQLException
 	 */
 	private Connection getConnection() throws SQLException {
-		System.out.println("Connection Before");
 
 		ConfigurationService conf = ConfigurationService.getInstance();
 		String username = conf.getConfigurationValue("db.username", "");
 		String password = conf.getConfigurationValue("db.password", "");
 		String url = conf.getConfigurationValue("db.url", "");
 		Connection connection = DriverManager.getConnection(url, username, password);
-		System.out.println("Conn Succ:"+connection);
 		return connection;
 	}
 
@@ -279,10 +277,6 @@ public class QuizJDBCDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
-				System.out.println(rs.getInt(1) + " -- " + rs.getString(2) + " -- " + rs.getString(3) + " -- "
-						+ rs.getInt(4) + " -- " + rs.getString(5) + " -- " + rs.getString(6) + " -- " + rs.getString(7)
-						+ " -- " + rs.getString(8) + " -- " + rs.getString(9));
 
 				Answer ans = new Answer(rs.getString(5));
 				ans.setQuestion(new Question(0, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));

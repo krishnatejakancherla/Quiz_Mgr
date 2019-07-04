@@ -33,6 +33,10 @@ import fr.epita.quiz.services.data.QuizJDBCDAO;
 public class CreateQuiz extends JFrame {
 
 	private static final long serialVersionUID = -8988486909734440112L;
+	private static final String QUIZ_QUERY = "select ID, NAME from QUIZ";
+	protected static final String ADD_MSG = "Question is added successfully";
+	protected static final String UPDT_MSG = "Question is Updated successfully";
+	protected static final String DEL_MSG = "Question is Deleted successfully";
 	private JPanel pane;
 	private JTextField quesFld;
 	private JTextField topicFld;
@@ -98,7 +102,7 @@ public class CreateQuiz extends JFrame {
 		try {
 			con = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
 			Statement stat = con.createStatement();
-			ResultSet rs = stat.executeQuery("select ID, NAME from QUIZ");
+			ResultSet rs = stat.executeQuery(QUIZ_QUERY);
 			while (rs.next()) {
 				comboBox.addItem(rs.getString("ID") +" - "+rs.getString("NAME"));
 				
@@ -170,7 +174,7 @@ public class CreateQuiz extends JFrame {
 					System.out.println("Answers:" + ans);
 					boolean isSucc = dao.createQues(ans);
 					if (isSucc) {
-						JOptionPane.showMessageDialog(null, "Question is added successfully");
+						JOptionPane.showMessageDialog(null, ADD_MSG);
 					}
 				} catch (CreateFailedException e1) {
 					e1.printStackTrace();
@@ -192,7 +196,7 @@ public class CreateQuiz extends JFrame {
 					ans.setMultChce(new MultChoice(fldA.getText(), fldB.getText(), fldC.getText(), fldD.getText()));
 					boolean isSucc = dao.updtQues(ans);
 					if (isSucc) {
-						JOptionPane.showMessageDialog(null, "Question is Updated successfully");
+						JOptionPane.showMessageDialog(null, UPDT_MSG);
 					}
 				} catch (CreateFailedException e1) {
 					e1.printStackTrace();
@@ -210,7 +214,7 @@ public class CreateQuiz extends JFrame {
 				try {
 					boolean isSucc = dao.delQues(qid);
 					if (isSucc) {
-						JOptionPane.showMessageDialog(null, "Question is Deleted successfully");
+						JOptionPane.showMessageDialog(null, DEL_MSG);
 					}
 				} catch (CreateFailedException e1) {
 					e1.printStackTrace();
